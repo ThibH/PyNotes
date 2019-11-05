@@ -52,7 +52,14 @@ class MainWindow(QtWidgets.QWidget):
             self.add_note_to_listwidget(note)
 
     def delete_selected_note(self):
-        print("Suppression de la note")
+        selected_items = self.lw_notes.selectedItems()
+        if not selected_items:
+            return False
+
+        selected_item = selected_items[0]
+        resultat = selected_item.note.delete()
+        if resultat:
+            self.lw_notes.takeItem(self.lw_notes.row(selected_item))
 
     def populate_notes(self):
         notes = get_notes()
