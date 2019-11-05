@@ -28,6 +28,12 @@ class Note:
         else:
             raise TypeError("Valeur invalide (besoin d'une chaîne de caractères).")
 
+    def delete(self):
+        os.remove(self.path)
+        if os.path.exists(self.path):
+            return False
+        return True
+
     @property
     def path(self):
         return os.path.join(NOTES_DIR, self.uuid + ".json")
@@ -42,4 +48,5 @@ class Note:
 
 if __name__ == '__main__':
     n = Note(title="Ceci est une note", content="Ceci est un contenu")
-    n.save()
+    n.uuid = "Entrez l'uuid d'une note existante sur le disque."
+    n.delete()
