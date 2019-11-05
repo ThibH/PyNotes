@@ -7,7 +7,13 @@ class Note:
         self.title = title
         self.content = content
 
+    def __repr__(self):
+        return f"{self.title} ({self.uuid})"
+
+    def __str__(self):
+        return self.title
+
 
 if __name__ == '__main__':
     n = Note(title="Ceci est une note", content="Ceci est un contenu")
-    print(n.uuid)
+    print(n)
