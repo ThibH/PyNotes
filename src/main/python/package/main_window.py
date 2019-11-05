@@ -1,6 +1,7 @@
 from PySide2 import QtWidgets, QtGui
 
-from package.api.note import Note
+from package.api.note import Note, get_notes
+
 
 class MainWindow(QtWidgets.QWidget):
     def __init__(self):
@@ -38,6 +39,11 @@ class MainWindow(QtWidgets.QWidget):
         self.lw_notes.itemSelectionChanged.connect(self.populate_note_content)
         QtWidgets.QShortcut(QtGui.QKeySequence("Backspace"), self.lw_notes, self.delete_selected_note)
 
+    def add_note_to_listwidget(self, note):
+        lw_item = QtWidgets.QListWidgetItem(note.title)
+        lw_item.note = note
+        self.lw_notes.addItem(lw_item)
+
     def create_note(self):
         titre, resultat = QtWidgets.QInputDialog.getText(self, "Ajouter une note", "Titre: ")
         if resultat and titre:
@@ -49,7 +55,9 @@ class MainWindow(QtWidgets.QWidget):
         print("Suppression de la note")
 
     def populate_notes(self):
-        print("Chargement des notes depuis le disque")
+        notes = get_notes()
+        for note in notes:
+            self.add_note_to_listwidget(note)
 
     def populate_note_content(self):
         print("Chargement du contenu de la note")
