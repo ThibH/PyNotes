@@ -1,4 +1,7 @@
+import os
 from uuid import uuid4
+
+from package.api.constants import NOTES_DIR
 
 
 class Note:
@@ -12,6 +15,10 @@ class Note:
 
     def __str__(self):
         return self.title
+
+    @property
+    def path(self):
+        return os.path.join(NOTES_DIR, self.uuid + ".json")
 
 
 if __name__ == '__main__':
