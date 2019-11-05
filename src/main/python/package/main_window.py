@@ -4,9 +4,11 @@ from package.api.note import Note, get_notes
 
 
 class MainWindow(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, ctx):
         super().__init__()
+        self.ctx = ctx
         self.setWindowTitle("PyNotes")
+
         self.setup_ui()
         self.populate_notes()
 
@@ -23,7 +25,9 @@ class MainWindow(QtWidgets.QWidget):
         self.te_contenu = QtWidgets.QTextEdit()
 
     def modify_widgets(self):
-        pass
+        css_file = self.ctx.get_resource("style.css")
+        with open(css_file, "r") as f:
+            self.setStyleSheet(f.read())
 
     def create_layouts(self):
         self.main_layout = QtWidgets.QGridLayout(self)
