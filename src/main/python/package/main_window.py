@@ -6,6 +6,7 @@ class MainWindow(QtWidgets.QWidget):
         super().__init__()
         self.setWindowTitle("PyNotes")
         self.setup_ui()
+        self.populate_notes()
 
     def setup_ui(self):
         self.create_widgets()
@@ -31,4 +32,22 @@ class MainWindow(QtWidgets.QWidget):
         self.main_layout.addWidget(self.te_contenu, 0, 1, 2, 1)
 
     def setup_connections(self):
-        pass
+        self.btn_createNote.clicked.connect(self.create_note)
+        self.te_contenu.textChanged.connect(self.save_note)
+        self.lw_notes.itemSelectionChanged.connect(self.populate_note_content)
+        QtWidgets.QShortcut(QtGui.QKeySequence("Backspace"), self.lw_notes, self.delete_selected_note)
+
+    def create_note(self):
+        print("Création d'une nouvelle note")
+
+    def delete_selected_note(self):
+        print("Suppression de la note")
+
+    def populate_notes(self):
+        print("Chargement des notes depuis le disque")
+
+    def populate_note_content(self):
+        print("Chargement du contenu de la note")
+
+    def save_note(self):
+        print("Sauvegarde du contenu de la note")
